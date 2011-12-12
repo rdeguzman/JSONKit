@@ -908,7 +908,7 @@ static void _JKDictionaryResizeIfNeccessary(JKDictionary *dictionary) {
   if(dictionary->capacity < (capacityForCount = _JKDictionaryCapacityForCount(dictionary->count + 1UL))) { // resize
     NSUInteger        oldCapacity = dictionary->capacity;
 #ifndef NS_BLOCK_ASSERTIONS
-    NSUInteger oldCount = dictionary->count;
+    //NSUInteger oldCount = dictionary->count;
 #endif
     JKHashTableEntry *oldEntry    = dictionary->entry;
     if(JK_EXPECT_F((dictionary->entry = (JKHashTableEntry *)calloc(1UL, sizeof(JKHashTableEntry) * capacityForCount)) == NULL)) { [NSException raise:NSMallocException format:@"Unable to allocate memory for hash table."]; }
@@ -917,7 +917,7 @@ static void _JKDictionaryResizeIfNeccessary(JKDictionary *dictionary) {
     
     NSUInteger idx = 0UL;
     for(idx = 0UL; idx < oldCapacity; idx++) { if(oldEntry[idx].key != NULL) { _JKDictionaryAddObject(dictionary, oldEntry[idx].keyHash, oldEntry[idx].key, oldEntry[idx].object); oldEntry[idx].keyHash = 0UL; oldEntry[idx].key = NULL; oldEntry[idx].object = NULL; } }
-    NSCParameterAssert((oldCount == dictionary->count));
+    //NSCParameterAssert((oldCount == dictionary->count));
     free(oldEntry); oldEntry = NULL;
   }
 }
